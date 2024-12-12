@@ -18,6 +18,33 @@ const state = {
   },
 };
 
+const cardData = [
+  {
+    id: 0,
+    name: "Blue Eyes White Dragon",
+    type: "Paper",
+    img: "./assets/icons/dragon.png",
+    WinOf: [1],
+    LoseOf: [2],
+  },
+  {
+    id: 1,
+    name: "Dark Magician",
+    type: "Rock",
+    img: "./assets/icons/magician.png",
+    WinOf: [2],
+    LoseOf: [0],
+  },
+  {
+    id: 2,
+    name: "Exodia",
+    type: "Scissors",
+    img: "./assets/icons/exodia.png",
+    WinOf: [0],
+    LoseOf: [1],
+  },
+];
+
 function init() {}
 console.log(state.score.scoreBox);
 init();
