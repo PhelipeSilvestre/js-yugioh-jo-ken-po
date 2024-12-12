@@ -19,8 +19,8 @@ const state = {
 };
 
 const playerSides = {
-  player1: "player-field-card",
-  computer: "computer-field-card",
+  player1: "player-cards",
+  computer: "computer-cards",
 };
 
 const cardData = [
@@ -28,7 +28,7 @@ const cardData = [
     id: 0,
     name: "Blue Eyes White Dragon",
     type: "Paper",
-    img: "./assets/icons/dragon.png",
+    img: "./src/assets/icons/dragon.png",
     WinOf: [1],
     LoseOf: [2],
   },
@@ -36,7 +36,7 @@ const cardData = [
     id: 1,
     name: "Dark Magician",
     type: "Rock",
-    img: "./assets/icons/magician.png",
+    img: "./src/assets/icons/magician.png",
     WinOf: [2],
     LoseOf: [0],
   },
@@ -44,11 +44,42 @@ const cardData = [
     id: 2,
     name: "Exodia",
     type: "Scissors",
-    img: "./assets/icons/exodia.png",
+    img: "./src/assets/icons/exodia.png",
     WinOf: [0],
     LoseOf: [1],
   },
 ];
+
+async function getRandomCardId() {
+  const randomIndex = Math.floor(Math.random() * cardData.length);
+  return cardData[randomIndex].id;
+}
+
+async function createCardImage(idCard, fieldSide) {
+  const cardImage = document.createElement("img");
+  cardImage.setAttribute("height", "100px");
+  cardImage.setAttribute("src", "./src/assets/icons/card-back.png");
+  cardImage.setAttribute("data-id", idCard);
+  cardImage.classList.add("card");
+
+  if (fieldSide === playerSides.player1) {
+    cardImage.addEventListener("mouseover", () => {
+      drawSelectedCard(idCard);
+    });
+
+    cardImage.addEventListener("click", function () {
+      setCardsField(cardImage.getAttribute("data-id"));
+    });
+  }
+
+  return cardImage;
+}
+
+async function drawSelectedCard(index) {
+  state.cardSprites.avatar.src = cardData[index].img;
+  state.cardSprites.name.innerText = cardData[index].name;
+  state.cardSprites.type.innerText = "Atribute : " + cardData[index].type;
+}
 
 async function drawCards(cardNumbers, fieldSide) {
   for (let i = 0; i < cardNumbers; i++) {
