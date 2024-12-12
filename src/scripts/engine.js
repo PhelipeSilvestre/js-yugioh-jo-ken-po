@@ -167,6 +167,9 @@ async function playAudio(status){
 function init() {    
   drawCards(5, state.playerSides.player1);
   drawCards(5, state.playerSides.computer);
+
+  const bmg = document.getElementById("bgm");
+  bmg.play();
 }
 
 init();
