@@ -1,3 +1,4 @@
+
 const state = {
   score: {
     player: 0,
@@ -17,7 +18,7 @@ const state = {
     player1: "player-cards",
     player1Box: document.querySelector("#player-cards"),
     computer: "computer-cards",
-    computerBox: document.querySelector("#computer-cards")
+    computerBox: document.querySelector("#computer-cards"),
   },
   actions: {
     button: document.getElementById("next-duel"),
@@ -58,13 +59,14 @@ async function getRandomCardId() {
 }
 
 async function createCardImage(idCard, fieldSide) {
+  
   const cardImage = document.createElement("img");
   cardImage.setAttribute("height", "100px");
   cardImage.setAttribute("src", "./src/assets/icons/card-back.png");
   cardImage.setAttribute("data-id", idCard);
   cardImage.classList.add("card");
 
-  if (fieldSide === playerSides.player1) {
+  if (fieldSide === state.playerSides.player1) {
     cardImage.addEventListener("mouseover", () => {
       drawSelectedCard(idCard);
     });
@@ -100,23 +102,23 @@ async function drawButton(text){
 }
 
 async function updateScore(){
-  state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`
+  state.score.scoreBox.innerText = `Win: ${state.score.player} | Lose: ${state.score.computer}`;
 }
 
 async  function checkDuelResults(playerCardId, computerCardId){
   let duelResults = "draw";
   let playerCard = cardData[playerCardId];
 
-  if(playerCard.WinOf.inclues(computerCardId)){
+  if(playerCard.WinOf.includes(computerCardId)){
     duelResults = "win";
     await playAudio(duelResults);
-    state.score.playerScode++;
+    state.score.player++;
   }
 
   if(playerCard.LoseOf.includes(computerCardId)){
     duelResults = "lose";
     await playAudio(duelResults);
-    state.score.computerScore++;
+    state.score.computer++;
   }
 
   return duelResults;
@@ -138,6 +140,7 @@ async function drawSelectedCard(index) {
 }
 
 async function drawCards(cardNumbers, fieldSide) {
+ 
   for (let i = 0; i < cardNumbers; i++) {
     const randomIdCard = await getRandomCardId();
     const cardImage = await createCardImage(randomIdCard, fieldSide);
@@ -161,7 +164,9 @@ async function playAudio(status){
   audio.play();
 }
 
-function init() {}
-drawCards(5, playerSides.player1);
-drawCards(5, playerSides.computer);
+function init() {    
+  drawCards(5, state.playerSides.player1);
+  drawCards(5, state.playerSides.computer);
+}
+
 init();
