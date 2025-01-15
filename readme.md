@@ -8,6 +8,9 @@ conceitos abordados:
 - Funções limpas
 - Organização de código
 
+Link do game:
+
+https://phelipesilvestre.github.io/js-yugioh-jo-ken-po/
 
 Screenshots
 
